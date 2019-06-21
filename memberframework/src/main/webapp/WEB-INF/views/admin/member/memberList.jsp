@@ -18,33 +18,28 @@
 		function memberList(key, word) {
 			$("#mlist").empty();
 			$.ajax({
-				url : "${root}/admin", 
 				type : "get",
-				data : "act=getmemberlist&key=" + key + "&word=" + word,
-				dataType : "xml",
+				url : "${root}/admin/memberlist.kitri", 
+				dataType : "json",
+				data : {"key" : key, "word" : word},
 				timeout : 30000,
 				cache : false,
-				success : function(xml) {
-					var member = $(xml).find("member");
+				success : function(data) {
+					var member = data.memberlist;
+					var len = member.length;
+					var view = "";
 					
 					for (var i = 0; i < member.length; i++) {
-						var id = $(member[i]).find("id").text();
-						var name = $(member[i]).find("name").text();
-						var email = $(member[i]).find("email").text();
-						var tel = $(member[i]).find("tel").text();
-						var address = $(member[i]).find("address").text();
-						var joindate = $(member[i]).find("joindate").text();
-						
-						var tr = $("<tr>").attr("class", "table-active");
-						var td1 = $("<td>").html(id);
-						var td2 = $("<td>").html(name);
-						var td3 = $("<td>").html(email);
-						var td4 = $("<td>").html(tel);
-						var td5 = $("<td>").html(address);
-						var td6 = $("<td>").html(joindate);
+						view += "<tr class='table-active'>\n";
+						view += ("<td>" + member[i].id + "</td>"); 
+						view += ("<td>" + member[i].name + "</td>"); 
+						view += ("<td>" + member[i].emailId + "@" + member[i].emailDomain + "</td>"); 
+						view += ("<td>" + member[i].tel1 + "-" + member[i].tel2 + "-" + member[i].tel3 + "</td>"); 
+						view += ("<td>" + member[i].address + " " + member[i].addressDetail + "</td>"); 
+						view += ("<td>" + member[i].joindate + "</td>"); 
+						view += "</tr>\n"
 	
-						tr.append(td1).append(td2).append(td3).append(td4).append(td4).append(td4);
-						$("#mlist").append(tr);
+						$("#mlist").empty().append(view);
 					}
 				}
 			});

@@ -4,6 +4,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.kitri.cafe.board.ReboardDao">
-
+<mapper namespace="com.kitri.cafe.board.dao.ReboardDao">
+	<insert id="writeArticle" parameterType="reboardDto">
+		INSERT ALL 
+		into board (seq, id, name, email, subject, content, hit, logtime, bcode)
+		values (#{seq}, #{id}, #{name}, #{email}, #{subject}, #{content}, 0, sysdate, #{bcode})
+		into reboard (rseq, seq, ref, lev, step, pseq, reply)
+		values (reboard_rseq.nextval, #{seq}, #{ref}, 0, 0, 0, 0)
+		SELECT *
+		FROM dual
+	</insert>
+	
+	<select id="viewArticle" parameterType="int" resultType="reboardDto">
+		SELECT b.seq, b.id, b.name, b.email, b.subject, b.content, b.hit, b.logtime, b.bcode, r.rseq, r.ref, r.lev, r.step, r.pseq, r.reply
+		FROM board b, reboard r
+		WHERE b.seq = r.seq and b.seq = #{seq}
+	</select>
+	
+	<select id="listArticle" parameterType="map" resultType="reboardDto">
+		SELECT c.seq, c.id, c.name, c.email, c.subject, c.content, c.hit, c.bcode, 
+               decode(to_char(c.logtime, 'yymmdd'), to_char(sysdate, 'yymmdd'), to_char(c.logtime, 'hh24:mi:ss'), to_char(c.logtime, 'yy.mm.dd')) logtime,
+               c.rseq, c.ref, c.lev, c.step, c.pseq, c.reply
+		FROM (SELECT rownum rn, total.*
+    		  FROM (SELECT b.seq, b.id, b.name, b.email, b.subject, b.content, b.hit, b.bcode, b.logtime, r.rseq, r.ref, r.lev, r.step, r.pseq, r.reply
+        			FROM board b, reboard r
+        			WHERE b.seq = r.seq and b.bcode = #{bcode}
+        			ORDER BY seq desc) total
+    		  WHERE rownum &lt;= #{end}) c
+		WHERE c.rn &gt; #{start}
+	</select>
 </mapper>

@@ -4,10 +4,10 @@
 <script>
 $(document).ready(function() {
 	$("#writeBtn").click(function() {
-		if ($("#subject").val().trim() != "") {
+		if ($("#subject").val().trim() == "") {
 			alert("Write subject");
 			return;
-		} else if ($("#content").val().trim() != "") {
+		} else if ($("#content").val().trim() == "") {
 			alert("Write content");
 			return;
 		} else {

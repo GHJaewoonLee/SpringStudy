@@ -52,7 +52,7 @@ $(document).ready(function() {
 			<c:set var="index" value="${board.ccode}"/>
 			<div class="menu">
 		</c:if>
-			<a href="${root}/${board.control}/write?bcode=${board.bcode}&pg=1&key=&word=">${board.bname}</a>
+			<a href="${root}/${board.control}/list?bcode=${board.bcode}&pg=1&key=&word=">${board.bname}</a>
 		<c:if test="${i.index < boardmenu.size() - 1}">
 			<c:if test="${index != boardmenu.get(i.index + 1).ccode}">
 				</div>

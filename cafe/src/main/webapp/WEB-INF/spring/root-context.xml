@@ -18,6 +18,7 @@
 			<list>
 				<value>/WEB-INF/mybatis/mapper_admin_board.xml</value>
 				<value>/WEB-INF/mybatis/mapper_reboard.xml</value>
+				<value>/WEB-INF/mybatis/mapper_common.xml</value>
 			</list>
 		</property>
 	</bean>

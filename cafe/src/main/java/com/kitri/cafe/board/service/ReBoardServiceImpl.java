@@ -6,9 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kitri.cafe.board.dao.ReboardDao;
 import com.kitri.cafe.board.model.ReboardDto;
+import com.kitri.cafe.common.dao.CommonDao;
 import com.kitri.cafe.util.CafeConstance;
 import com.kitri.cafe.util.NumberCheck;
 
@@ -35,7 +37,9 @@ public class ReBoardServiceImpl implements ReboardService {
 	}
 
 	@Override
+	@Transactional
 	public ReboardDto viewArticle(int seq) {
+		sqlSession.getMapper(CommonDao.class).updateHit(seq);
 		ReboardDto reboardDto = sqlSession.getMapper(ReboardDao.class).viewArticle(seq);
 		reboardDto.setContent(reboardDto.getContent().replace("\n", "<br>"));
 		return reboardDto;

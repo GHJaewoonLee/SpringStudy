@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/commons/template/top.jsp" %>
+<%@ include file="/WEB-INF/views/commons/logincheck.jsp" %>
+<%@ include file="/WEB-INF/views/commons/board_common.jsp" %>
+
 <script>
 $(document).ready(function() {
 	$("#writeBtn").click(function() {
@@ -15,8 +18,8 @@ $(document).ready(function() {
 		}
 	});
 });
-
 </script>
+
 <!-- title -->
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	<tr>

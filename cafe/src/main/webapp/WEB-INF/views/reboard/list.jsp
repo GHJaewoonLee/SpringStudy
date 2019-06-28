@@ -5,13 +5,12 @@
 
 <script>
 $(document).ready(function() {
+	
 	$(".moveWriteBtn").click(function() {
 		$("#bcode").val("${bcode}");
-		$("#pg").val("${pg}");
-		$("#key").val("${key}");
-		$("#word").val("${word}");
-		$("#seq").val("${seq}");
-		
+		$("#pg").val("1");
+		$("#key").val("");
+		$("#word").val("");
 		$("#commonForm").attr("method", "GET").attr("action", "${root}/reboard/write").submit();
 	});
 	
@@ -25,7 +24,6 @@ $(document).ready(function() {
 		$("#key").val("${key}");
 		$("#word").val("${word}");
 		$("#seq").val($(this).attr("data-seq"));
-		
 		$("#commonForm").attr("method", "GET").attr("action", "${root}/reboard/view").submit();
 	});
 	
@@ -34,7 +32,6 @@ $(document).ready(function() {
 		$("#pg").val("1");
 		$("#key").val("");
 		$("#word").val("");
-		
 		$("#commonForm").attr("method", "GET").attr("action", "${root}/reboard/list").submit();
 	});
 	
@@ -43,7 +40,6 @@ $(document).ready(function() {
 		$("#pg").val($(this).attr("data-pg"));
 		$("#key").val("${key}");
 		$("#word").val("${word}");
-		
 		$("#commonForm").attr("method", "GET").attr("action", "${root}/reboard/list").submit();
 	});
 	
@@ -52,7 +48,6 @@ $(document).ready(function() {
 		$("#pg").val("1");
 		$("#key").val($("#skey").val());
 		$("#word").val($("#sword").val());
-		
 		$("#commonForm").attr("method", "GET").attr("action", "${root}/reboard/list").submit();
 	});
 	
@@ -61,9 +56,9 @@ $(document).ready(function() {
 		$("#pg").val("1");
 		$("#key").val("id");
 		$("#word").val("${userInfo.id}");
-		
 		$("#commonForm").attr("method", "GET").attr("action", "${root}/reboard/list").submit();
 	});
+	
 });
 </script>
 
@@ -87,8 +82,8 @@ $(document).ready(function() {
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr valign="bottom">
 		<td nowrap>
-			<img src="${root}/img/board/btn_write_01.gif" class="moveWriteBtn" width="64" height="22"
-			border="0" align="absmiddle" alt="글쓰기">
+			<img src="${root}/img/board/btn_write_01.gif" width="64" height="22"
+			class="moveWriteBtn" border="0" align="absmiddle" alt="글쓰기">
 		</td>
 
 		<td width="100%" style="padding-left: 6px" valign="bottom">새글 <b><font
@@ -139,6 +134,7 @@ $(document).ready(function() {
      
      </td-->
 		<td style="word-break: break-all;">
+			<img src="${root}/img/board/blank.gif" width="${article.lev * 15}" height="1">
 			<label class="viewBtn" data-seq="${article.seq}">${article.subject.replace('<', '&lt;')}</label>
 		</td>
 		<td></td>
@@ -171,8 +167,8 @@ $(document).ready(function() {
 	</tr>
 	<tr valign="top">
 		<td nowrap>
-			<img src="${root}/img/board/btn_write_01.gif" class="moveWriteBtn" width="64" height="22"
-			border="0" align="absmiddle" alt="글쓰기">
+			<img src="${root}/img/board/btn_write_01.gif" width="64" height="22"
+			class="moveWriteBtn" border="0" align="absmiddle" alt="글쓰기">
 		</td>
 		<td width="100%" align="center"><!--PAGE--> ${navigator.navigator}</td>
 		<td nowrap class="stext"><b>${navigator.pageNo}</b> / ${navigator.totalPageCount}
@@ -194,13 +190,16 @@ $(document).ready(function() {
 				<option value="subject">글제목
 				<option value="name">글쓴이
 				<option value="seq">글번호
-			</select>
+			</select> 
 			<span id="sear1"> <input type="text" id="sword" size="22"
-			class="inp" style="margin-top: -19px;"></span>
-			<img src="${root}/img/board/sbtn_s.gif" width="32" height="18" id="searchBtn" border="0" align="absmiddle" alt="검색">
+			class="inp" style="margin-top: -19px;"></span> 
+			<img src="${root}/img/board/sbtn_s.gif" width="32" height="18"
+				id="searchBtn" border="0" align="absmiddle" alt="검색">
 			<c:if test="${userInfo != null}">
-			<img src="${root}/img/board/sbtn_mytext.gif" width="82" height="20"	id="myListBtn" align="absmiddle" alt="내가 쓴 글 보기"><br>
-			</c:if>
+			<img src="${root}/img/board/sbtn_mytext.gif" width="82" height="20"
+				id="myListBtn" align="absmiddle" alt="내가 쓴 글 보기">
+			</c:if>	
+			<br>
 		</td>
 		<td width="50%" align="right"><a href="#"><img
 			src="${root}/img/board/sbtn_top.gif" width="24" height="11"

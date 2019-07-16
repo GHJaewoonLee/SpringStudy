@@ -1,0 +1,29 @@
+Connection Pooling
+-> JDBC 2.0  (javax.sql)
+-> JNDI (javax.naming)
+
+
+Context ictx = new InitialContext();
+Context ctx = (Context) ictx.lookup("java:comp/env");
+DataSource ds = (DataSource) ctx.lookup("jdbc ....");
+Connection conn = ds.getConnection();
+
+
+		WAS									C				D
+---------------------						|				|
+|					|						|		--------|--------
+|					|						|		|		|		|
+|					|						u		영		공		음
+---------------------						|				|
+|	java:comp/env	|						|		--------|--------
+---------------------						|		|		|		|
+|JDBC |	ejb  |Thread|						K		W		J		C
+|	  |		 |		|										|
+|	  |		 |		|									  CP.txt
+|	  |		 |		|
+|	  |		 |		|
+---------------------
+
+
+http://
+file://
